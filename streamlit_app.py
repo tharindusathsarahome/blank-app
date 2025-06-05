@@ -201,7 +201,7 @@ else:
         
         col1, col2 = st.columns(2)
         with col1:
-            st.image(pil_image, caption="Uploaded Image", use_column_width=True)
+            st.image(pil_image, caption="Uploaded Image", use_container_width=True)
 
         with col2:
             st.write("") # Spacer
