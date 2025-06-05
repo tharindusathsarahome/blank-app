@@ -94,8 +94,8 @@ MODEL_PATH = 'models/plant-disease-model.pth' # Ensure this file is in the same 
 @st.cache_resource
 def load_pytorch_model(model_path, num_classes):
     device = get_default_device()
-    st.sidebar.info(f"Attempting to load model from: {model_path}")
-    st.sidebar.info(f"Current working directory: {os.getcwd()}") # See where Streamlit is running from
+    # st.sidebar.info(f"Attempting to load model from: {model_path}")
+    # st.sidebar.info(f"Current working directory: {os.getcwd()}") # See where Streamlit is running from
 
     # Explicitly check if the file exists before trying to load
     if not os.path.exists(model_path):
@@ -113,7 +113,7 @@ def load_pytorch_model(model_path, num_classes):
             st.sidebar.warning(f"Could not list directory contents: {list_e}")
         return None # Return None if file doesn't exist
 
-    st.sidebar.info(f"Model file seems to exist at: {model_path}")
+    # st.sidebar.info(f"Model file seems to exist at: {model_path}")
     model_instance = CNN_NeuralNet(in_channels=3, num_diseases=num_classes) # Renamed to avoid conflict
     try:
         model_instance.load_state_dict(torch.load(model_path, map_location=device))
@@ -247,4 +247,4 @@ else:
 st.sidebar.markdown("---")
 st.sidebar.markdown("**About**")
 st.sidebar.markdown("This app uses a Convolutional Neural Network (CNN) trained on the New Plant Diseases Dataset to identify plant diseases.")
-st.sidebar.markdown("Developed using PyTorch and Streamlit.")
+st.sidebar.markdown("Developed by Dilanka Kasun.")
