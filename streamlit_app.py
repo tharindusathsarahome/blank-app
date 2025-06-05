@@ -177,18 +177,17 @@ st.set_page_config(page_title="Plant Disease Detection", layout="wide")
 st.title("🌿 Plant Crop Disease Detection")
 st.markdown("""
 Upload an image of a plant leaf to detect potential diseases.
-While this model can identify 38 different conditions across various plants,
-it is particularly trained for conditions in **Corn, Potato, and Tomato**.
+This model can identify conditions in **Corn, Potato, and Tomato**, among others.
 """)
 
-st.subheader("Corn Conditions:")
-st.markdown("Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot, Corn_(maize)___Common_rust_, Corn_(maize)___Northern_Leaf_Blight, Corn_(maize)___healthy")
+st.subheader("Corn (Maize) Conditions:")
+st.markdown("Cercospora leaf spot Gray leaf spot, Common rust, Northern Leaf Blight, Healthy")
 
 st.subheader("Potato Conditions:")
-st.markdown("Potato___Early_blight, Potato___Late_blight, Potato___healthy")
+st.markdown("Early blight, Late blight, Healthy")
 
 st.subheader("Tomato Conditions:")
-st.markdown("Tomato___Bacterial_spot, Tomato___Early_blight, Tomato___Late_blight, Tomato___Leaf_Mold, Tomato___Septoria_leaf_spot, Tomato___Spider_mites Two-spotted_spider_mite, Tomato___Target_Spot, Tomato___Tomato_Yellow_Leaf_Curl_Virus, Tomato___Tomato_mosaic_virus, Tomato___healthy")
+st.markdown("Bacterial spot, Early blight, Late blight, Leaf Mold, Septoria leaf spot, Spider mites Two-spotted spider mite, Target Spot, Tomato Yellow Leaf Curl Virus, Tomato mosaic virus, Healthy")
 
 st.markdown("---")
 
