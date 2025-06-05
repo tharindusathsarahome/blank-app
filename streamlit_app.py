@@ -226,7 +226,7 @@ else:
             """, unsafe_allow_html=True)
 
             st.write("") # Spacer
-            if st.button("🔍 Classify Image", key="classify_button"): # Added a key for stability
+            if st.button("🔍 Identify the diseases", key="classify_button"): # Added a key for stability
                 with st.spinner("Analysing the leaf..."):
                     # Preprocess
                     img_tensor = preprocess_image(pil_image)
