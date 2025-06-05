@@ -181,7 +181,7 @@ This model can identify conditions in **Corn, Potato, and Tomato**, among others
 """)
 
 st.subheader("Corn (Maize) Conditions:")
-st.markdown("Cercospora leaf spot Gray leaf spot, Common rust, Northern Leaf Blight, Healthy")
+st.markdown("Cercospora leaf spot, Gray leaf spot, Common rust, Northern Leaf Blight, Healthy")
 
 st.subheader("Potato Conditions:")
 st.markdown("Early blight, Late blight, Healthy")
