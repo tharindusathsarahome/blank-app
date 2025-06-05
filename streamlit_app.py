@@ -181,7 +181,7 @@ While this model can identify 38 different conditions across various plants,
 it is particularly trained for conditions in **Corn, Potato, and Tomato**.
 """)
 
-st.subheader("Corn (Maize) Conditions:")
+st.subheader("Corn Conditions:")
 st.markdown("Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot, Corn_(maize)___Common_rust_, Corn_(maize)___Northern_Leaf_Blight, Corn_(maize)___healthy")
 
 st.subheader("Potato Conditions:")
@@ -201,21 +201,32 @@ else:
 
 
 if model is None:
-    st.error("Model could not be loaded. Please check the logs and ensure the model file is present.")
+    st.error("Model could not be loaded. Please check the sidebar and logs for details.")
 else:
     uploaded_file = st.file_uploader("Choose a plant leaf image...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         # Display the uploaded image
-        pil_image = Image.open(uploaded_file).convert("RGB") # Ensure image is RGB
-        
+        pil_image = Image.open(uploaded_file).convert("RGB")
+
         col1, col2 = st.columns(2)
         with col1:
             st.image(pil_image, caption="Uploaded Image", use_container_width=True)
 
         with col2:
+            # Inject CSS to make the button full width
+            # This targets the button element within Streamlit's button component structure
+            st.markdown("""
+            <style>
+            /* Target the button element itself within Streamlit's structure */
+            div[data-testid="stButton"] > button {
+                width: 100%;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
             st.write("") # Spacer
-            if st.button("🔍 Classify Image"):
+            if st.button("🔍 Classify Image", key="classify_button"): # Added a key for stability
                 with st.spinner("Analysing the leaf..."):
                     # Preprocess
                     img_tensor = preprocess_image(pil_image)
@@ -226,7 +237,7 @@ else:
                     st.success(f"**Predicted Condition:** {predicted_class}")
                     st.info(f"**Confidence:** {confidence:.2f}%")
 
-                    if "healthy" not in predicted_class.lower() and confidence > 50: # Example threshold
+                    if "healthy" not in predicted_class.lower() and confidence > 50:
                         st.warning("The plant may require attention.")
                     elif "healthy" in predicted_class.lower():
                         st.balloons()
