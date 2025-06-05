@@ -1,5 +1,5 @@
 streamlit
 numpy
 Pillow==11.2.1
-torch==2.6.0+cpu --index-url https://download.pytorch.org/whl/cpu/torch_stable.html
-torchvision==0.21.0+cpu --index-url https://download.pytorch.org/whl/cpu/torch_stable.html
+torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu/torch_stable.html
+torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cpu/torch_stable.html
