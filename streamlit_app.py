@@ -96,23 +96,54 @@ NUM_CLASSES = len(CLASS_NAMES)
 MODEL_PATH = 'plant-disease-model.pth' # Ensure this file is in the same directory
 
 # --- 4. Load Model (Cached for performance) ---
-@st.cache_resource # Use cache_resource for models and other non-data objects
+@st.cache_resource
 def load_pytorch_model(model_path, num_classes):
     device = get_default_device()
-    model = CNN_NeuralNet(in_channels=3, num_diseases=num_classes)
+    st.sidebar.info(f"Attempting to load model from: {model_path}")
+    st.sidebar.info(f"Current working directory: {os.getcwd()}") # See where Streamlit is running from
+
+    # Explicitly check if the file exists before trying to load
+    if not os.path.exists(model_path):
+        st.sidebar.error(f"CRITICAL: Model file NOT FOUND at path: {model_path}")
+        st.sidebar.text("Files in current directory:")
+        try:
+            for item in os.listdir('.'): # List files in CWD
+                st.sidebar.text(f"- {item}")
+            # If in a subdirectory, list files there too
+            if os.path.dirname(model_path) and os.path.dirname(model_path) != '.':
+                st.sidebar.text(f"Files in '{os.path.dirname(model_path)}':")
+                for item in os.listdir(os.path.dirname(model_path)):
+                    st.sidebar.text(f"- {item}")
+        except Exception as list_e:
+            st.sidebar.warning(f"Could not list directory contents: {list_e}")
+        return None # Return None if file doesn't exist
+
+    st.sidebar.info(f"Model file seems to exist at: {model_path}")
+    model_instance = CNN_NeuralNet(in_channels=3, num_diseases=num_classes) # Renamed to avoid conflict
     try:
-        # Load on CPU if GPU not available, or if model was saved on GPU and running on CPU
-        model.load_state_dict(torch.load(model_path, map_location=device))
-        st.sidebar.success(f"Model loaded on {device}.")
-    except FileNotFoundError:
-        st.sidebar.error(f"Error: Model file '{model_path}' not found.")
+        model_instance.load_state_dict(torch.load(model_path, map_location=device))
+        st.sidebar.success(f"Model loaded successfully on {device}.")
+    except FileNotFoundError: # Should be caught by os.path.exists, but as a fallback
+        st.sidebar.error(f"FileNotFoundError: Model file '{model_path}' not found during torch.load.")
+        print(f"ERROR (console): FileNotFoundError during torch.load: {model_path}")
+        return None
+    except RuntimeError as e:
+        st.sidebar.error(f"RuntimeError loading model state_dict: {e}")
+        st.sidebar.error("This might be due to model file corruption or PyTorch version mismatch.")
+        print(f"ERROR (console): RuntimeError loading model state_dict: {e}")
+        import traceback
+        traceback.print_exc() # Print full traceback to console/logs for more details
         return None
     except Exception as e:
-        st.sidebar.error(f"Error loading model: {e}")
+        st.sidebar.error(f"General error loading model state_dict: {e}")
+        print(f"ERROR (console): General error loading model state_dict: {e}")
+        import traceback
+        traceback.print_exc()
         return None
-    model = to_device(model, device)
-    model.eval() # Set model to evaluation mode
-    return model, device
+    
+    model_instance = to_device(model_instance, device)
+    model_instance.eval()
+    return model_instance, device # Return the instance and device
 
 # --- 5. Preprocess Image ---
 def preprocess_image(image_pil):
@@ -157,7 +188,12 @@ st.markdown(f"<small>{', '.join(CLASS_NAMES)}</small>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Load Model (this will run once and be cached)
-model, device = load_pytorch_model(MODEL_PATH, NUM_CLASSES)
+loaded_model_data = load_pytorch_model(MODEL_PATH, NUM_CLASSES)
+if loaded_model_data:
+    model, device = loaded_model_data
+else:
+    model, device = None, None # Explicitly set to None if loading failed
+
 
 if model is None:
     st.error("Model could not be loaded. Please check the logs and ensure the model file is present.")
