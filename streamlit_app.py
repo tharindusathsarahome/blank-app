@@ -234,7 +234,7 @@ else:
                     # Predict
                     predicted_class, confidence = predict(img_tensor, model, device, CLASS_NAMES)
 
-                    st.success(f"**Predicted Condition:** {predicted_class}")
+                    st.warning(f"**Predicted Condition:** {predicted_class}")
                     st.info(f"**Confidence:** {confidence:.2f}%")
 
                     if "healthy" not in predicted_class.lower() and confidence > 50:
