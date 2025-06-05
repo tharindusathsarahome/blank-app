@@ -239,7 +239,7 @@ else:
                     if "healthy" not in predicted_class.lower() and confidence > 50:
                         st.error("The plant may require attention.")
                     elif "healthy" in predicted_class.lower():
-                        st.balloons()
+                        # st.balloons()
                         st.success("The plant appears to be healthy!")
 
 
