@@ -1,13 +1,5 @@
 streamlit
-numpy  # Often a dependency of PyTorch/Torchvision, good to include
+numpy
 Pillow==11.2.1
-# For PyTorch with CUDA 12.4 (GPU support)
-# If your Streamlit Cloud environment has a GPU, this is preferred.
-# However, most free tiers of Streamlit Cloud do NOT provide GPUs.
-# torch==2.6.0+cu124 --find-links https://download.pytorch.org/whl/cu124/torch_stable.html
-# torchvision==0.21.0+cu124 --find-links https://download.pytorch.org/whl/cu124/torch_stable.html
-
-# --- OR (More common and recommended for Streamlit Cloud free tier) ---
-# For PyTorch CPU-only (generally more reliable for cloud deployment without dedicated GPUs)
 torch==2.6.0+cpu --find-links https://download.pytorch.org/whl/cpu/torch_stable.html
 torchvision==0.21.0+cpu --find-links https://download.pytorch.org/whl/cpu/torch_stable.html
