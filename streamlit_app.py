@@ -93,7 +93,7 @@ kept_classes = [
 # ImageFolder sorts class names (folder names) alphabetically.
 CLASS_NAMES = sorted(kept_classes)
 NUM_CLASSES = len(CLASS_NAMES)
-MODEL_PATH = 'models/plant-disease-model.pth' # Ensure this file is in the same directory
+MODEL_PATH = './models/plant-disease-model.pth' # Ensure this file is in the same directory
 
 # --- 4. Load Model (Cached for performance) ---
 @st.cache_resource
