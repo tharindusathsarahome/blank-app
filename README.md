@@ -1,19 +1,33 @@
-# 🎈 Blank app template
+# Plant Disease Detection App 🌿
 
-A simple Streamlit app template for you to modify!
+A simple web app to detect diseases in plant leaves using a Deep Learning model.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+Developed by: Dilanka Kasun
 
-### How to run it on your own machine
+## Features
 
-1. Install the requirements
+*   Upload an image of a plant leaf (Corn, Potato, Tomato, and more).
+*   Get a prediction of the plant's condition.
+*   See the model's confidence score.
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+## How to Use
 
-2. Run the app
+1.  **Run the App Locally:**
+    *   Clone this repository.
+    *   Install requirements: `pip install -r requirements.txt`
+    *   Make sure `plant-disease-model.pth` is in the same folder.
+    *   Run: `streamlit run app.py`
+    *   Open in your browser (usually `http://localhost:8501`).
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+2.  **Using the App:**
+    *   Upload a leaf image.
+    *   Click "Classify Image".
+    *   View the prediction!
+
+## Model
+
+Uses a pre-trained Convolutional Neural Network (CNN) to identify 38 different plant conditions.
+
+---
+
+This app is for educational and demonstration purposes.
